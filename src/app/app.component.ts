@@ -17,6 +17,11 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
+
+
     });
+    // test below
+    console.log(JSON.stringify(platform.platforms()));
+    console.log(platform.url());
   }
 }

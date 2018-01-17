@@ -1,0 +1,15 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      {{title}}
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <button ion-item *ngFor="let item of items" (click)="itemSelected(item.id)">
+      {{ item.title }}
+    </button>
+  </ion-list>
+</ion-content>
