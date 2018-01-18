@@ -11,8 +11,10 @@ import { Storage } from '@ionic/storage';
 export class ItemPage implements OnInit{
 
   public item: any;
+  contentList: any;
   id: string;
   constructor(public navCtrl: NavController, private http: HttpClient, private storage: Storage) {
+    this.item = {};
     this.storage.get('id').then(data => {
       this.id = data;
 
@@ -22,6 +24,8 @@ export class ItemPage implements OnInit{
         data => {
           console.log(JSON.stringify(data));
           this.item = data;
+
+          this.item.contentList = this.buildContent(this.item.content);
         },
         // Errors will call this callback instead:
         err => {
@@ -29,6 +33,24 @@ export class ItemPage implements OnInit{
         }
       );
     });
+  }
+
+  buildContent (content){
+    var afterList = [];
+    if (content) {
+      var list = content.split('|');
+      if (list && list.length > 0) {
+        list.forEach((c) => {
+          if (c.match(/\.(jpeg|jpg|gif|png)$/) != null) {
+            afterList.push({type: 'img', content: "http://47.90.207.3:3000/images/popyard/" + c});
+          }
+          else {
+            afterList.push({type: 'p', content: c});
+          }
+        })
+      }
+    }
+    return afterList;
   }
 
   ngOnInit(): void {

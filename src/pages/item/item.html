@@ -1,12 +1,21 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      details
+      {{item.title}}
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
 
-  {{item.content}}
+  <div *ngFor="let p of item.contentList">
+    <p *ngIf="p.type === 'p'">
+      {{p.content}}
+    </p>
+
+    <p *ngIf="p.type !== 'p'" class="text-center item">
+      <img width="600" [src]="p.content">
+    </p>
+  </div>
+
 </ion-content>

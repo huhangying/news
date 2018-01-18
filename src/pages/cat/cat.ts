@@ -11,7 +11,8 @@ import { Storage } from '@ionic/storage';
 
 export class CatPage implements OnInit{
 
-  items: any[];
+  items: any;
+  title: string;
   constructor(public navCtrl: NavController, private http: HttpClient, private storage: Storage) {
   }
 
