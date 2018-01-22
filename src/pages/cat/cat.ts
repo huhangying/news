@@ -3,6 +3,7 @@ import { NavController } from 'ionic-angular';
 import {HttpClient} from "@angular/common/http";
 import {ItemPage} from "../item/item";
 import { Storage } from '@ionic/storage';
+import { ConfigService } from "../../service/config";
 
 @Component({
   selector: 'page-cat',
@@ -13,24 +14,42 @@ export class CatPage implements OnInit{
 
   items: any;
   title: string;
-  constructor(public navCtrl: NavController, private http: HttpClient, private storage: Storage) {
+  loaded: boolean;
+  config: any;
+  constructor(public navCtrl: NavController, private http: HttpClient, private storage: Storage,
+              config: ConfigService) {
+    this.loaded = false;
+    this.config = config;
   }
 
   ngOnInit(): void {
-    this.http.get('http://47.90.207.3:3000/news/cat/1/100').subscribe(
-      // Successful responses call the first callback.
+    this.storage.get('cid').then(
       data => {
-        console.log(JSON.stringify(data));
-        this.items = data;
-        this.storage.get('title').then(data => {
-          this.title = data;
-        });
+        if (!data) {
+          // set default data
+          data = 1;
+          this.storage.set('cid', 1);
+        }
+        this.title = this.config.getCatTitles()[data].title;
+
+        this.http.get(`http://47.90.207.3:3000/news/cat/${data}/100`).subscribe(
+          // Successful responses call the first callback.
+          data => {
+            console.log(JSON.stringify(data));
+            this.items = data;
+            this.loaded = true;
+          },
+          // Errors will call this callback instead:
+          err => {
+            console.log('Something went wrong!');
+          });
+
       },
-      // Errors will call this callback instead:
       err => {
-        console.log('Something went wrong!');
-      }
-    );
+        console.log('err:', err)
+      });
+
+
   }
 
   getListByCat(catId) {

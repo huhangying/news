@@ -7,15 +7,20 @@
 </ion-header>
 
 <ion-content padding>
+  <div text-left *ngIf="!loaded">
+    <ion-spinner></ion-spinner>
+  </div>
 
-  <div *ngFor="let p of item.contentList">
-    <p *ngIf="p.type === 'p'">
-      {{p.content}}
-    </p>
+  <div *ngIf="loaded">
+    <div *ngFor="let p of item.contentList">
+      <p *ngIf="p.type === 'p'">
+        {{p.content}}
+      </p>
 
-    <p *ngIf="p.type !== 'p'" class="text-center item">
-      <img width="600" [src]="p.content">
-    </p>
+      <p *ngIf="p.type !== 'p'" class="text-center item">
+        <img width="600" [src]="p.content">
+      </p>
+    </div>
   </div>
 
 </ion-content>

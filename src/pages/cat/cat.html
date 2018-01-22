@@ -7,7 +7,11 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-list>
+  <div text-left *ngIf="!loaded">
+    <ion-spinner></ion-spinner>
+  </div>
+
+  <ion-list *ngIf="loaded">
     <button ion-item *ngFor="let item of items" (click)="itemSelected(item.id)">
       {{ item.title }}
     </button>

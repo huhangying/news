@@ -13,26 +13,13 @@ export class ItemPage implements OnInit{
   public item: any;
   contentList: any;
   id: string;
+  loaded: boolean;
+
   constructor(public navCtrl: NavController, private http: HttpClient, private storage: Storage) {
     this.item = {};
-    this.storage.get('id').then(data => {
-      this.id = data;
+    this.loaded = false;
 
-      console.log('http://47.90.207.3:3000/news/' + this.id)
-      this.http.get('http://47.90.207.3:3000/news/' + this.id).subscribe(
-        // Successful responses call the first callback.
-        data => {
-          console.log(JSON.stringify(data));
-          this.item = data;
 
-          this.item.contentList = this.buildContent(this.item.content);
-        },
-        // Errors will call this callback instead:
-        err => {
-          console.log('Something went wrong!');
-        }
-      );
-    });
   }
 
   buildContent (content){
@@ -54,7 +41,25 @@ export class ItemPage implements OnInit{
   }
 
   ngOnInit(): void {
+    this.storage.get('id').then(data => {
+      this.id = data;
 
+      //console.log('http://47.90.207.3:3000/news/' + this.id)
+      this.http.get('http://47.90.207.3:3000/news/' + this.id).subscribe(
+        // Successful responses call the first callback.
+        data => {
+          console.log(JSON.stringify(data));
+          this.item = data;
+
+          this.item.contentList = this.buildContent(this.item.content);
+          this.loaded = true;
+        },
+        // Errors will call this callback instead:
+        err => {
+          console.log('Something went wrong!');
+        }
+      );
+    });
   }
 
 
