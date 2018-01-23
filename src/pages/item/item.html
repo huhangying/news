@@ -11,7 +11,7 @@
     <ion-spinner></ion-spinner>
   </div>
 
-  <div *ngIf="loaded">
+  <div *ngIf="loaded" disabled="true" (swipe)="pageSwipe($event)">
     <div *ngFor="let p of item.contentList">
       <p *ngIf="p.type === 'p'">
         {{p.content}}
@@ -21,6 +21,12 @@
         <img width="600" [src]="p.content">
       </p>
     </div>
+  </div>
+
+  <div *ngIf="item.siblingNum > 0 && item.siblings" text-center>
+    <button ion-button *ngFor="let s of item.siblings" (click)="loadSiblingContent(s.siblingNum)" color="{{s.siblingNum === siblingNum? 'light':''}}">
+      {{s.siblingNum}}
+    </button>
   </div>
 
 </ion-content>
