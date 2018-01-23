@@ -50,9 +50,6 @@ export class CatPage implements OnInit{
         console.log('err:', err)
       });
 
-
-
-
   }
 
   // get latest 100.
