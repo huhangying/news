@@ -16,45 +16,86 @@ export class CatPage implements OnInit{
   title: string;
   loaded: boolean;
   config: any;
+  cid: number;
+  catList: any;
+
   constructor(public navCtrl: NavController, private http: HttpClient, private storage: Storage,
               config: ConfigService) {
     this.loaded = false;
     this.config = config;
+    //this.cid = 1;
   }
 
   ngOnInit(): void {
+    this.catList = this.config.getCatTitles().filter(cat => {
+      return cat.id !== 0
+    } );
+    console.log(JSON.stringify(this.catList));
+
     this.storage.get('cid').then(
       data => {
         if (!data) {
           // set default data
-          data = 1;
-          this.storage.set('cid', 1);
+          this.cid = 1;
+          this.storage.set('cid', this.cid);
         }
-        this.title = this.config.getCatTitles()[data].title;
+        else {
+          this.cid = data;
+        }
+        this.title = this.config.getCatTitles()[this.cid].title;
 
-        this.http.get(`http://47.90.207.3:3000/news/cat/${data}/100`).subscribe(
-          // Successful responses call the first callback.
-          data => {
-            console.log(JSON.stringify(data));
-            this.items = data;
-            this.loaded = true;
-          },
-          // Errors will call this callback instead:
-          err => {
-            console.log('Something went wrong!');
-          });
-
+        this.getItemsByCat(data);
       },
       err => {
         console.log('err:', err)
       });
 
 
-  }
 
-  getListByCat(catId) {
 
   }
+
+  // get latest 100.
+  getItemsByCat(cid) {
+    cid = cid || 1;
+    this.loaded = false;
+    this.http.get(`http://47.90.207.3:3000/news/cat/${cid}/100`).subscribe(
+      // Successful responses call the first callback.
+      data => {
+        //console.log(JSON.stringify(data));
+        this.items = data;
+        this.loaded = true;
+      },
+      // Errors will call this callback instead:
+      err => {
+        console.log('Something went wrong!');
+      });
+  }
+
+  catChanged(cid) {
+    this.cid = cid;
+    console.log(`you are in cat ${cid}`);
+    this.getItemsByCat(cid);
+    this.storage.set('cid', cid);
+
+  }
+
+  catSwipe(event) {
+    //console.log(event.direction);
+    if(event.direction === 4) { // <-
+      if (this.cid > 1) {
+        this.cid--;
+        //this.catChanged(this.cid);
+      }
+    }
+    else if(event.direction === 2) { // ->
+      if (this.cid < 12) {
+        this.cid++;
+        //this.catChanged(this.cid);
+      }
+    }
+  }
+
 
   itemSelected(id) {
     this.storage.set('id', id);

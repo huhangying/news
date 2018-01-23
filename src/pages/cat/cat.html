@@ -1,17 +1,20 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-      {{title}}
-    </ion-title>
-  </ion-navbar>
+  <ion-scroll scollX="true" class="swiper-slide" style="display: block;height:42px;" >
+
+  <ion-segment [(ngModel)]="cid" (ionChange)="catChanged(cid)">
+    <ion-segment-button *ngFor="let cat of catList" value="{{cat.id}}" [ngClass]="{'segment-activated': cat.id === cid}" style="width: 70px;">
+      {{cat.title}}
+    </ion-segment-button>
+  </ion-segment>
+  </ion-scroll>
 </ion-header>
 
-<ion-content padding>
+<ion-content padding (swipe)="catSwipe($event)">
   <div text-left *ngIf="!loaded">
     <ion-spinner></ion-spinner>
   </div>
 
-  <ion-list *ngIf="loaded">
+  <ion-list *ngIf="loaded" >
     <button ion-item *ngFor="let item of items" (click)="itemSelected(item.id)">
       {{ item.title }}
     </button>
