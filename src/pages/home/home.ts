@@ -25,11 +25,23 @@ export class HomePage implements OnInit {
       data => {
         //console.log(JSON.stringify(data));
         this.items = data;
-        this.items.map(item => {
-          item.date = new Date(item.date).toLocaleDateString()
+        this.items = this.items.map(item => {
+          item.date = new Date(item.date).toLocaleDateString();
+          item.thumbnails = [];
+          item.imgLen = 0;
+          if (item.imgs) {
+            let imgs = item.imgs.split('|');
+            imgs.map(img => {
+              if (img.match(/\.(jpeg|jpg|gif|png)$/) != null && item.imgLen < 3) {
+                item.thumbnails.push("http://47.90.207.3:3000/images/popyard/" + img);
+                item.imgLen++;
+              }
+            });
+          }
           return item;
         })
         this.loaded = true;
+        console.log(JSON.stringify(this.items))
       },
       // Errors will call this callback instead:
       err => {
