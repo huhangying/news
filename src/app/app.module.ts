@@ -14,6 +14,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { IonicStorageModule } from '@ionic/storage';
 import {ConfigService} from "../service/config";
+import { IonicImageLoader } from 'ionic-image-loader';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import {ConfigService} from "../service/config";
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp),
+    IonicImageLoader.forRoot(),
     IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],

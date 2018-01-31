@@ -3,6 +3,7 @@ import { NavController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import {HttpClient} from "@angular/common/http";
 import {ItemPage} from "../item/item";
+import { ImageLoaderConfig } from 'ionic-image-loader';
 
 @Component({
   selector: 'page-home',
@@ -13,9 +14,11 @@ export class HomePage implements OnInit {
   loaded: boolean;
   items: any;
 
-  constructor(public navCtrl: NavController, private http: HttpClient, private storage: Storage) {
+  constructor(public navCtrl: NavController, private http: HttpClient, private storage: Storage, imageLoaderConfig: ImageLoaderConfig) {
     this.loaded = false;
     this.items = [];
+    imageLoaderConfig.setMaximumCacheAge(7 * 24 * 60 * 60 * 1000); // 7 days
+    imageLoaderConfig.setFallbackUrl('http://47.90.207.3:3000/images/not-available.jpg'); // if images fail to load, display this image instead
   }
 
   ngOnInit(): void {
