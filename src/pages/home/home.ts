@@ -50,7 +50,8 @@ export class HomePage implements OnInit {
   }
 
   itemSelected(id) {
-    this.storage.set('id', id);
-    this.navCtrl.push(ItemPage);
+    this.storage.set('id', id).then(() => {
+      this.navCtrl.push(ItemPage);
+    });
   }
 }

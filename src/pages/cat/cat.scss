@@ -19,13 +19,22 @@ page-cat {
 
     ion-segment-button.segment-button {
       display: inline-block!important;
-      min-width: 60px!important;
+      min-width: 55px!important;
       width: auto!important;
       font-weight: bold;
-      font-size: 1.4rem;
+      font-size: 1.6rem;
     }
   }
 
-  $segment-button-ios-toolbar-button-max-width: 70px;
+  $segment-button-ios-toolbar-button-max-width: 60px;
 
+  .title {
+    font-weight: bold;
+  }
+  .note {
+    font-size: small;
+    color: gray;
+    padding:3px 5px 0 0;
+    margin: 0;
+  }
 }

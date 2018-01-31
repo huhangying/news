@@ -61,10 +61,11 @@ export class ItemPage implements OnInit{
     this.http.get('http://47.90.207.3:3000/news/' + id).subscribe(
       // Successful responses call the first callback.
       data => {
-        console.log(JSON.stringify(data));
+        //console.log(JSON.stringify(data));
         this.item = data;
 
         this.item.contentList = this.buildContent(this.item.content);
+        this.item.date = new Date(this.item.date).toLocaleDateString();
         this.loaded = true;
         if (this.item.siblingNum > 0) {
 

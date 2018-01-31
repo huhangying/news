@@ -61,6 +61,10 @@ export class CatPage implements OnInit{
       data => {
         //console.log(JSON.stringify(data));
         this.items = data;
+        this.items = this.items.map(item => {
+          item.date = new Date(item.date).toLocaleDateString();
+          return item;
+        })
         this.loaded = true;
       },
       // Errors will call this callback instead:
