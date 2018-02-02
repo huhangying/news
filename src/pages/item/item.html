@@ -11,7 +11,7 @@
     <ion-spinner></ion-spinner>
   </div>
 
-  <div *ngIf="loaded" disabled="true" (swipe)="pageSwipe($event)">
+  <div *ngIf="loaded" disabled="true" (swipe)="pageSwipe($event)" (dblclick)="goBack()">
 
     <ion-row>
       <ion-col no-padding no-margin>
