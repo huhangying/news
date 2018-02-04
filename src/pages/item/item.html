@@ -6,12 +6,12 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content padding (dblclick)="goBack()" [style.font-size]="(1 + fontSize*0.2) + 'rem'">
   <div text-center *ngIf="!loaded">
     <ion-spinner></ion-spinner>
   </div>
 
-  <div *ngIf="loaded" disabled="true" (swipe)="pageSwipe($event)" (dblclick)="goBack()">
+  <div *ngIf="loaded" disabled="true" (swipe)="pageSwipe($event)">
 
     <ion-row>
       <ion-col no-padding no-margin>

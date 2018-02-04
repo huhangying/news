@@ -21,7 +21,8 @@ export class MyApp {
 
       // set image lazy load
       imageLoaderConfig.setDisplay('inline-block');
-      imageLoaderConfig.enableSpinner(true);
+      //imageLoaderConfig.enableSpinner(true);
+      //imageLoaderConfig.setConcurrency(3);
       imageLoaderConfig.setMaximumCacheAge(7 * 24 * 60 * 60 * 1000); // 7 days
       imageLoaderConfig.setFallbackUrl('http://47.90.207.3:3000/images/not-available.jpg'); // if images fail to load, display this image instead
     });

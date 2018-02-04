@@ -15,10 +15,12 @@ export class ItemPage implements OnInit{
   id: string;
   loaded: boolean;
   siblingNum: number;
+  fontSize: number;
 
   constructor(public navCtrl: NavController, private http: HttpClient, private storage: Storage) {
     this.item = {};
     this.loaded = false;
+    this.fontSize = 0;
   }
 
   buildContent (content){
@@ -43,6 +45,9 @@ export class ItemPage implements OnInit{
     this.storage.get('id').then(data => {
       this.id = data;
       this.loadPage(this.id);
+    });
+    this.storage.get('fontSize').then(data => {
+      this.fontSize = data;
     });
   }
 

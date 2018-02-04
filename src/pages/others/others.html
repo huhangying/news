@@ -1,11 +1,29 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      todo
+      设置
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
-  Harry is still working on it...
+
+  <ion-list>
+    <ion-list-header>
+      正文字体大小
+    </ion-list-header>
+    <ion-item>
+      <ion-range min="0" step="2" max="8" snaps="true" [(ngModel)]="fontSize" (ionChange)="saveFontSize()">
+        <ion-label range-left class="small-text">A</ion-label>
+        <ion-label range-right>A</ion-label>
+      </ion-range>
+    </ion-item>
+    <ion-item>
+      <p [style.font-size]="(1 + fontSize*0.2) + 'rem'">
+        正文字体大小
+      </p>
+    </ion-item>
+
+  </ion-list>
+
 </ion-content>
