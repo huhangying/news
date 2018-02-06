@@ -1,7 +1,7 @@
 <ion-header>
   <ion-scroll scollX="true" class="swiper-slide" style="display: block;height:42px;" >
 
-    <ion-segment [(ngModel)]="cid" (ionChange)="catChanged(cid)">
+    <ion-segment [(ngModel)]="cid" (ionChange)="catChanged(cid)" #topNavBar>
       <ion-segment-button *ngFor="let cat of catList" value="{{cat.id}}" [ngClass]="{'segment-activated': cat.id === cid}" style="width: 70px;">
         {{cat.title}}
       </ion-segment-button>
@@ -13,7 +13,6 @@
   <div text-center *ngIf="!loaded">
     <ion-spinner></ion-spinner>
   </div>
-
   <div *ngIf="loaded" >
     <div *ngFor="let item of items" (click)="itemSelected(item.id)">
       <div class="title" no-padding>{{item.title}}</div>

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import { NavController } from 'ionic-angular';
 import {HttpClient} from "@angular/common/http";
 import {ItemPage} from "../item/item";
@@ -18,6 +18,7 @@ export class CatPage implements OnInit{
   config: any;
   cid: number;
   catList: any;
+  @ViewChild('topNavBar') topNavBar: any;
 
   constructor(public navCtrl: NavController, private http: HttpClient, private storage: Storage,
               config: ConfigService) {
@@ -95,8 +96,9 @@ export class CatPage implements OnInit{
         //this.catChanged(this.cid);
       }
     }
+    // set scroll position
+    this.topNavBar.nativeElement.scrollLeft = (this.cid - 1) * 55;
   }
-
 
   itemSelected(id) {
     this.storage.set('id', id);
